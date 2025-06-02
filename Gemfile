@@ -49,3 +49,16 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "dotenv-rails"
+gem "devise"
+gem "cancancan"
+gem "friendly_id", "~> 5.4"
+gem "kaminari"
+gem "ransack"
+gem "simple_form"
+gem "acts_as_votable"
+gem "tailwindcss-rails"
+gem "font-awesome-sass", "~> 5.15.1"
+gem "view_component"
+gem "image_processing"
