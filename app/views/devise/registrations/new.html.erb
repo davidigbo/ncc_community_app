@@ -4,6 +4,12 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+
+   <%= f.input :role,
+                collection: User.roles.keys.map { |r| [r.titleize, r] },
+                prompt: "Select a role",
+                required: true %>
+
     <%= f.input :email,
                 required: true,
                 autofocus: true,
