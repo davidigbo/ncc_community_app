@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
- root :to => "home#index"
 
- namespace :admin do
-  resources :users 
-  root "dashboard#index"
+  root "home#index"
 
+  namespace :admin do
+    root "dashboard#index"
+    resources :dashboard, only: :index
+    resources :users
+  end
+  
   resources :profile, only: %i[show edit update]
 end
