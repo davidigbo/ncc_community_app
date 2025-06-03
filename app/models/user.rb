@@ -35,18 +35,6 @@ class User < ApplicationRecord
           build_profile.save
         end
 
-  def admin?
-    role == "admin"
-  end
-
-  def agent?
-    role == "agent"
-  end
-
-  def general_user?
-    role == "general_user"
-  end
-
   def avatar_thumbnail
     avatar.variant(resize_to_limit: [100, 100]).processed if avatar.attached?
   rescue
