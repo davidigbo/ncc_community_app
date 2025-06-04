@@ -3,11 +3,17 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  namespace :admin do
-    root "dashboard#index"
-    resources :dashboard, only: :index
-    resources :users
+ namespace :admin do
+    resources :users, only: [:index, :edit, :update, :destroy]
+    root to: "dashboard#index"
   end
   
-  resources :profile, only: %i[show edit update]
+   resources :profiles, only: [:show, :edit, :update] do
+    member do
+      post :vote
+    end
+  end
+  resources :dashboards, only: [:show]
+
+  root "home#index"
 end
