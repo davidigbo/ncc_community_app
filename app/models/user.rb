@@ -35,23 +35,23 @@ class User < ApplicationRecord
           build_profile.save
         end
 
-  def avatar_thumbnail
-    avatar.variant(resize_to_limit: [100, 100]).processed if avatar.attached?
-  rescue
-    nil
-  end
+  # def avatar_thumbnail
+  #   avatar.variant(resize_to_limit: [100, 100]).processed if avatar.attached?
+  # rescue
+  #   nil
+  # end
 
-  def voted_for?(post)
-    votes.exists?(votable: post)
-  end
+  # def voted_for?(post)
+  #   votes.exists?(votable: post)
+  # end
 
-  def vote_for(post)
-    votes.create(votable: post, vote_flag: true) unless voted_for?(post)
-  end
+  # def vote_for(post)
+  #   votes.create(votable: post, vote_flag: true) unless voted_for?(post)
+  # end
 
-  def unvote_for(post)
-    votes.find_by(votable: post)&.destroy
-  end
+  # def unvote_for(post)
+  #   votes.find_by(votable: post)&.destroy
+  # end
   # def self.search(query)
   #   if query.present?
   #     where("name ILIKE :query OR email ILIKE :query", query: "%#{query}%")
