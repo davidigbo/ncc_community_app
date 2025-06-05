@@ -1,9 +1,8 @@
-<!-- app/views/admin/dashboard/index.html.erb -->
 <h1>Admin Dashboard</h1>
-
 <table>
   <thead>
     <tr>
+      <th>Name</th>
       <th>Email</th>
       <th>Role</th>
       <th>Actions</th>
@@ -12,8 +11,9 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
+        <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= user.role.titleize %></td>
+        <td><%= user.role&.titleize || "No Role" %></td>
         <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
       </tr>
     <% end %>

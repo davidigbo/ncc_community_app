@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root "home#index"
-
  namespace :admin do
     resources :users, only: [:index, :edit, :update, :destroy]
     root to: "dashboard#index"

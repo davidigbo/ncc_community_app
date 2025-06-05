@@ -4,5 +4,5 @@ class Profile < ApplicationRecord
 
   acts_as_votable
 
-  acts_as_taggable_on :interests
+  # acts_as_taggable_on :interests
 end

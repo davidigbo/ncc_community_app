@@ -8,7 +8,13 @@ class User < ApplicationRecord
          has_one :profile, dependent: :destroy
          has_one_attached :avatar
 
-         enum role: { general_user: 0, agent:1, admin: 2 }
+         enum :role, { general_user: 0, agent:1, admin: 2 }
+
+         validates :name, presence: true
+         validates :email, presence: true, uniqueness: true
+         validates :password, presence: true, length: { minimum: 6 }
+         validates :role, presence: true
+
 
           acts_as_voter
           # acts_as_taggable_on :interests

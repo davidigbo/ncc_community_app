@@ -63,3 +63,4 @@ gem "font-awesome-sass", "~> 5.15.1"
 gem "view_component"
 gem "image_processing"
 gem "omniauth-google-oauth2"
+# gem 'acts-as-taggable-on', '~> 9.0', '>= 9.0.1'

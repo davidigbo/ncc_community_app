@@ -10,6 +10,10 @@
                 prompt: "Select a role",
                 required: true %>
 
+    <%= f.input :name,
+                required: true,
+                input_html: { autocomplete: "name" } %>
+
     <%= f.input :email,
                 required: true,
                 autofocus: true,
