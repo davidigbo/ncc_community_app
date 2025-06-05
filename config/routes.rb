@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "settings/show"
+  get "settings/update"
   devise_for :users
 
  namespace :admin do
@@ -12,6 +14,9 @@ Rails.application.routes.draw do
     end
   end
   resources :dashboards, only: [:show]
+
+  resource :settings, only: [:show, :update, :destroy]
+  # resources :notifications, only: [:index, :destroy]
 
   root "home#index"
 end

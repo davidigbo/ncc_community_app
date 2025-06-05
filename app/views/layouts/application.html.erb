@@ -14,10 +14,13 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
   </head>
 
-  <body>
+  
+  <body class="bg-gray-100 text-gray-900 font-sans antialiased">
     <main class="container mx-auto mt-28 px-5 flex">
+    <%= render "shared/navbar"%>
       <%= yield %>
     </main>
   </body>
