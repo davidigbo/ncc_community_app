@@ -1,4 +1,8 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Feedbacks#show</h1>
-  <p>Find me in app/views/admin/feedbacks/show.html.erb</p>
-</div>
+<h1>Feedback Details</h1>
+<p><strong>User:</strong> <%= @feedback.user&.email || 'N/A' %></p>
+<p><strong>Content:</strong> <%= @feedback.content %></p>
+<p><strong>Status:</strong> <%= @feedback.status %></p>
+<p><strong>Created At:</strong> <%= @feedback.created_at.strftime("%b %d, %Y %H:%M") %></p>
+
+<%= link_to "Edit", edit_admin_feedback_path(@feedback), class: "btn btn-primary" %>
+<%= link_to "Back to Feedbacks", admin_feedbacks_path, class: "btn btn-secondary" %>

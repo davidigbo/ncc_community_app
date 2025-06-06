@@ -1,4 +1,10 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Events#show</h1>
-  <p>Find me in app/views/admin/events/show.html.erb</p>
-</div>
+<h1>Event Details</h1>
+<p><strong>Title:</strong> <%= @event.title %></p>
+<p><strong>Description:</strong> <%= @event.description %></p>
+<p><strong>Start Date:</strong> <%= @event.start_date.strftime("%b %d, %Y %H:%M") if @event.start_date %></p>
+<p><strong>End Date:</strong> <%= @event.end_date.strftime("%b %d, %Y %H:%M") if @event.end_date %></p>
+<p><strong>Location:</strong> <%= @event.location %></p>
+<p><strong>Status:</strong> <%= @event.status %></p>
+
+<%= link_to "Edit", edit_admin_event_path(@event), class: "btn btn-primary" %>
+<%= link_to "Back to Events", admin_events_path, class: "btn btn-secondary" %>

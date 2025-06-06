@@ -53,6 +53,6 @@ class Admin::EventRegistrationsController < ApplicationController
   end
 
   def event_registration_params
-    params.require(:event_registration).permit(:user_id, :event_id, :status)
+    params.require(:event_registration).permit(:user_id, :event_id, :status, :registration_date, :notes)
   end
 end

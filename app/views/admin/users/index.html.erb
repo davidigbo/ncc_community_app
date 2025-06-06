@@ -1,4 +1,28 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Users#index</h1>
-  <p>Find me in app/views/admin/users/index.html.erb</p>
-</div>
+<h1>Users</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Bio</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.role.titleize %></td>
+        <td><%= truncate(user.bio, length: 50) %></td>
+        <td><%= user.created_at.strftime("%b %d, %Y") %></td>
+        <td>
+          <%= link_to "Show", admin_user_path(user), class: "btn btn-sm btn-primary" %>
+          <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-secondary" %>
+          <%= link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "New User", new_admin_user_path, class: "btn btn-success" %>

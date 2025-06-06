@@ -1,0 +1,28 @@
+<%= form_with(model: [:admin, registration], local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :user_id, "User", class: "form-label" %>
+    <%= form.collection_select :user_id, User.all, :id, :email, { prompt: "Select User" }, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :event_id, "Event", class: "form-label" %>
+    <%= form.collection_select :event_id, Event.all, :id, :title, { prompt: "Select Event" }, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :status, class: "form-label" %>
+    <%= form.select :status, EventRegistration.statuses.keys.map { |s| [s.titleize, s] }, {}, class: "form-select" %>
+  </div>
+
+    <div class="mb-3">
+        <%= form.label :registration_date, class: "form-label" %>
+        <%= form.date_select :registration_date, { start_year: Date.current.year - 5, end_year: Date.current.year + 5 }, class: "form-select" %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :notes, class: "form-label" %>
+    <%= form.text_area :notes, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>

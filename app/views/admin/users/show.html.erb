@@ -1,4 +1,8 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Users#show</h1>
-  <p>Find me in app/views/admin/users/show.html.erb</p>
-</div>
+<h1>User Details</h1>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Role:</strong> <%= @user.role.titleize %></p>
+<p><strong>Bio:</strong> <%= @user.bio %></p>
+<p><strong>Created At:</strong> <%= @user.created_at.strftime("%b %d, %Y %H:%M") %></p>
+
+<%= link_to "Edit", edit_admin_user_path(@user), class: "btn btn-primary" %>
+<%= link_to "Back to Users", admin_users_path, class: "btn btn-secondary" %>

@@ -1,4 +1,9 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::EventRegistrations#show</h1>
-  <p>Find me in app/views/admin/event_registrations/show.html.erb</p>
-</div>
+<h1>Event Registration Details</h1>
+<p><strong>User:</strong> <%= @registration.user&.email || 'N/A' %></p>
+<p><strong>Event:</strong> <%= @registration.event&.title || 'N/A' %></p>
+<p><strong>Status:</strong> <%= @registration.status %></p>
+<p><strong>Notes:</strong> <%= @registration.notes %></p>
+<p><strong>Registered At:</strong> <%= @registration.created_at.strftime("%b %d, %Y %H:%M") %></p>
+
+<%= link_to "Edit", edit_admin_event_registration_path(@registration), class: "btn btn-primary" %>
+<%= link_to "Back to Registrations", admin_event_registrations_path, class: "btn btn-secondary" %>
