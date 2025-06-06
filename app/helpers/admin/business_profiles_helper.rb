@@ -1,0 +1,2 @@
+module Admin::BusinessProfilesHelper
+end
