@@ -1,0 +1,24 @@
+<%= form_with(model: [:admin, @business_profile], local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :company_name %>
+    <%= form.text_field :company_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :business_type %>
+    <%= form.text_field :business_type, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :contact_info %>
+    <%= form.text_area :contact_info, rows: 3, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :approval_status %>
+    <%= form.select :approval_status, BusinessProfile.approval_statuses.keys.map { |k| [k.titleize, k] }, {}, class: "form-select" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+  <%= link_to 'Cancel', admin_business_profiles_path, class: "btn btn-secondary ms-2" %>
+<% end %>

@@ -4,15 +4,29 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user
+    user ||= User.new 
 
     if user.admin?
       can :manage, :all
-    elsif user.agent?
+    elsif user.moderator?
       can :read, :all
-      can :create, [Post, Comment]
+      can :manage, Feedback
+      can :manage, Event
+      can :manage, EventRegistration
+      can :update, BusinessProfile, approval_status:"pending"
+    elsif user.agent? || user.distributor? || user.investor?
+      can :read, :all
+      can :manage, BusinessProfile, user_id: user.id
+      can :read, Feedback
+      can :read, Event
+      can :create, EventRegistration
+      can :manage, EventRegistration, user_id: user.id 
     else
       can :read, :all
+      can :create, Feedback
+      can :create, EventRegistration
+      can :manage, EventRegistration, user_id: user.id
+      can :manage, Profile, user_id: user.id
     end
   end
     # Define abilities for the user here. For example:

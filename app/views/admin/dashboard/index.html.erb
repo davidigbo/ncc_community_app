@@ -1,21 +1,34 @@
 <h1>Admin Dashboard</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.role&.titleize || "No Role" %></td>
-        <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-3">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-header">Total Users</div>
+      <div class="card-body"><h2><%= @users_count %></h2></div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-header">Pending Business Profiles</div>
+      <div class="card-body"><h2><%= @business_profiles_pending %></h2></div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-header">Feedback Entries</div>
+      <div class="card-body"><h2><%= @feedbacks_count %></h2></div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-info mb-3">
+      <div class="card-header">Events</div>
+      <div class="card-body"><h2><%= @events_count %></h2></div>
+    </div>
+  </div>
+  <% if can? :update, @business_profile %>
+  <%= link_to 'Edit', edit_admin_business_profile_path(@business_profile), class: "btn btn-primary" %>
+<% end %>
+
+<% if can? :destroy, @business_profile %>
+  <%= link_to 'Delete', admin_business_profile_path(@business_profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<% end %>
+</div>

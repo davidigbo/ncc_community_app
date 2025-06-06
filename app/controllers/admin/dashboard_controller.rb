@@ -1,10 +1,14 @@
 class Admin::DashboardController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authorize
-  # before_action :set_active_nav
   before_action :ensure_admin!
+
   def index
-    @users = User.all
+    @users_count = User.count
+    @business_profiles_pending = BusinessProfile.pending.count
+    @business_profiles_approved = BusinessProfile.approved.count
+    @business_profiles_rejected = BusinessProfile.rejected.count
+    @feedbacks_count = Feedback.count
+    @events_count = Event.count
   end
 
   private

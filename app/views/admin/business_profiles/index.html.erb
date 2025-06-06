@@ -1,4 +1,41 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::BusinessProfiles#index</h1>
-  <p>Find me in app/views/admin/business_profiles/index.html.erb</p>
-</div>
+<h1>Business Profiles</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Company Name</th>
+      <th>Business Type</th>
+      <th>Contact Info</th>
+      <th>Approval Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @business_profiles.each do |profile| %>
+      <tr>
+        <td><%= profile.company_name %></td>
+        <td><%= profile.business_type %></td>
+        <td><%= profile.contact_info %></td>
+        <td>
+          <%# Use badges for status %>
+          <% case profile.approval_status %>
+          <% when "approved" %>
+            <span class="badge bg-success">Approved</span>
+          <% when "rejected" %>
+            <span class="badge bg-danger">Rejected</span>
+          <% when "pending" %>
+            <span class="badge bg-warning text-dark">Pending</span>
+          <% else %>
+            <span class="badge bg-secondary">Unknown</span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Show', admin_business_profile_path(profile), class: "btn btn-sm btn-outline-primary" if can?(:read, profile) %>
+          <%= link_to 'Edit', edit_admin_business_profile_path(profile), class: "btn btn-sm btn-outline-secondary" if can?(:update, profile) %>
+          <%= link_to 'Delete', admin_business_profile_path(profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" if can?(:destroy, profile) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Business Profile', new_admin_business_profile_path, class: "btn btn-primary mb-3" if can?(:create, BusinessProfile) %>

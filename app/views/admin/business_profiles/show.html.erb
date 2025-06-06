@@ -1,4 +1,23 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::BusinessProfiles#show</h1>
-  <p>Find me in app/views/admin/business_profiles/show.html.erb</p>
+<h1><%= @business_profile.company_name %></h1>
+
+<p><strong>Business Type:</strong> <%= @business_profile.business_type %></p>
+<p><strong>Contact Info:</strong> <%= @business_profile.contact_info %></p>
+<p><strong>Approval Status:</strong>
+  <% case @business_profile.approval_status %>
+  <% when "approved" %>
+    <span class="badge bg-success">Approved</span>
+  <% when "rejected" %>
+    <span class="badge bg-danger">Rejected</span>
+  <% when "pending" %>
+    <span class="badge bg-warning text-dark">Pending</span>
+  <% else %>
+    <span class="badge bg-secondary">Unknown</span>
+  <% end %>
+</p>
+
+<div class="mt-3">
+  <% if can?(:update, @business_profile) %>
+    <%= link_to 'Edit', edit_admin_business_profile_path(@business_profile), class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to 'Back to list', admin_business_profiles_path, class: "btn btn-secondary" %>
 </div>
