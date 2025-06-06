@@ -1,0 +1,9 @@
+<h1>Reply Details</h1>
+
+<p><strong>Feedback:</strong> <%= @reply.feedback.try(:title) || "N/A" %></p>
+<p><strong>User:</strong> <%= @reply.user.try(:email) || "N/A" %></p>
+<p><strong>Content:</strong> <%= simple_format(@reply.content) %></p>
+<p><strong>Created At:</strong> <%= @reply.created_at %></p>
+
+<%= link_to 'Edit', edit_admin_reply_path(@reply) %> |
+<%= link_to 'Back to Replies', admin_replies_path %>

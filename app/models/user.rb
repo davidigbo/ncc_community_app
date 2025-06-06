@@ -7,6 +7,9 @@ class User < ApplicationRecord
 
          has_one :profile, dependent: :destroy
          has_one :business_profile, dependent: :destroy
+         has_many :events, dependent: :destroy
+         has_many :feedbacks, dependent: :destroy
+         has_many :replies, dependent: :destroy
          has_one_attached :avatar
 
          enum :role, { general_user: 0, agent:1, distributor: 2, investor: 3, admin: 4 }

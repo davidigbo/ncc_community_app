@@ -1,0 +1,30 @@
+<h1>Replies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feedback</th>
+      <th>User</th>
+      <th>Content</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @replies.each do |reply| %>
+      <tr>
+        <td><%= reply.feedback.try(:title) || "N/A" %></td>
+        <td><%= reply.user.try(:email) || "N/A" %></td>
+        <td><%= truncate(reply.content, length: 50) %></td>
+        <td><%= reply.created_at.strftime("%Y-%m-%d") %></td>
+        <td>
+          <%= link_to 'Show', admin_reply_path(reply) %> |
+          <%= link_to 'Edit', edit_admin_reply_path(reply) %> |
+          <%= link_to 'Delete', admin_reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Reply', new_admin_reply_path %>

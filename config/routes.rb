@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     resources :business_profiles
     resources :feedbacks, only: [:index, :show, :destroy]
     resources :events do
-      resources :event_registrations, only: [:index, :show, :update, :destroy]
+    resources :event_registrations, only: [:index, :show, :update, :destroy]
+    resources :replies
     end
     root to: "dashboard#index"
   end
