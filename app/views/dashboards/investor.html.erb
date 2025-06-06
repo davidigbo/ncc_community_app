@@ -1,0 +1,33 @@
+<h1>Investor Dashboard</h1>
+<p>You can explore investment opportunities and register for events.</p>
+<%= link_to 'Explore Investment Opportunities', investment_opportunities_path, class: 'btn btn-primary' %>
+<%= link_to 'Register for Events', events_path, class: 'btn btn-secondary' %>
+<% if current_user.investor? %>
+  <h2>Your Investment Opportunities</h2>
+  <ul>
+    <% current_user.investment_opportunities.each do |opportunity| %>
+      <li><%= link_to opportunity.title, investment_opportunity_path(opportunity) %></li>
+    <% end %>
+  </ul>
+
+  <h2>Upcoming Events</h2>
+  <ul>
+    <% Event.upcoming.each do |event| %>
+      <li><%= link_to event.title, event_path(event) %> - <%= event.date.strftime('%B %d, %Y') %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You do not have permission to view this section.</p>
+<% end %>
+<div class="dashboard-links">
+  <h2>Events</h2>
+  <ul>
+    <li><%= link_to 'View Events', events_path %></li>
+    <li><%= link_to 'Register for Event', new_event_registration_path %></li>
+  </ul>
+
+  <h2>Pending Investment Profiles</h2>
+    <ul>
+        <li><%= link_to 'View Pending Profiles', pending_investment_profiles_path %></li>
+    </ul>
+</div>

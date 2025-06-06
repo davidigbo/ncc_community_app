@@ -1,0 +1,21 @@
+<h1>Distributor Dashboard</h1>
+<p>You can manage your business profiles and view available events.</p>
+<%= link_to 'Manage Business Profiles', admin_business_profiles_path, class: 'btn btn-primary' %>
+<%= link_to 'View Available Events', admin_events_path, class: 'btn btn-secondary' %>
+<% if current_user.distributor? %>
+  <h2>Your Business Profiles</h2>
+  <ul>
+    <% current_user.business_profiles.each do |profile| %>
+      <li><%= link_to profile.company_name, business_profile_path(profile) %></li>
+    <% end %>
+  </ul>
+
+  <h2>Upcoming Events</h2>
+  <ul>
+    <% Event.upcoming.each do |event| %>
+      <li><%= link_to event.title, event_path(event) %> - <%= event.date.strftime('%B %d, %Y') %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You do not have permission to view this section.</p>
+<% end %>

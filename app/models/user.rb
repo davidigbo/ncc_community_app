@@ -6,19 +6,18 @@ class User < ApplicationRecord
          :confirmable, :omniauthable, omniauth_providers: [:google_oauth2]
 
          has_one :profile, dependent: :destroy
-         has_one :business_profile, dependent: :destroy
+         has_many :business_profiles, dependent: :destroy
          has_many :events, dependent: :destroy
          has_many :feedbacks, dependent: :destroy
          has_many :replies, dependent: :destroy
          has_one_attached :avatar
 
-         enum :role, { general_user: 0, agent:1, distributor: 2, investor: 3, admin: 4 }
+         enum :role, { general_user: 0, agent: 1, distributor: 2, investor: 3, admin: 4 }
 
          validates :name, presence: true
-         validates :email, presence: true, uniqueness: true
-         validates :phone, uniqueness: true, allow_blank: true
-         validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
-         validates :role, presence: true
+         validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+         validates :password, confirmation: true, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+        #  validates :role, presence: true
 
 
           acts_as_votable

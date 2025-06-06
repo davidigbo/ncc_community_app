@@ -1,0 +1,9 @@
+<h1><%= @profile.user.name.presence || "Your Profile" %></h1>
+
+<p><strong>Bio:</strong> <%= @profile.bio %></p>
+
+<% if @profile.avatar.attached? %>
+  <p><%= image_tag @profile.avatar %></p>
+<% end %>
+
+<%= link_to "Edit Profile", edit_profile_path(@profile), class: "btn btn-primary" %>

@@ -1,23 +1,29 @@
 Rails.application.routes.draw do
+  # Devise routes for authentication
   devise_for :users
 
- namespace :admin do
+  # Admin namespace
+  namespace :admin do
     resources :users
     resources :business_profiles
     resources :feedbacks, only: [:index, :show, :destroy]
+
     resources :events do
-    resources :event_registrations, only: [:index, :show, :update, :destroy]
-    resources :replies
+      resources :event_registrations, only: [:index, :show, :update, :destroy]
+      resources :replies
     end
+
+    # Admin dashboard root
     root to: "dashboard#index"
   end
-  
-  resources :profiles, only: [:show, :edit, :update]
 
-  resources :dashboards, only: [:show]
+  # User-specific routes (protected)
+  authenticate :user do
+    resources :dashboards, only: [:show]
+    resources :profiles, only: [:show, :edit, :update]
+    resource :settings, only: [:show, :update, :destroy]
+  end
 
-  resource :settings, only: [:show, :update, :destroy]
-  # resources :notifications, only: [:index, :destroy]
-
+  # Public root page
   root "home#index"
 end
