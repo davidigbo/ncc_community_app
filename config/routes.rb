@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "settings/show"
-  get "settings/update"
   devise_for :users
 
  namespace :admin do
