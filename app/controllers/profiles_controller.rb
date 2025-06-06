@@ -3,7 +3,10 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[show edit update destroy vote]
 
   def show
-    head :no_content
+    @profile = current_user.profile
+    if @profile.nil?
+      redirect_to new_profile_path, alert: 'Please create your profile first.'
+    end
   end
 
   def edit
