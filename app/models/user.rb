@@ -6,17 +6,20 @@ class User < ApplicationRecord
          :confirmable, :omniauthable, omniauth_providers: [:google_oauth2]
 
          has_one :profile, dependent: :destroy
+         has_one :business_profile, dependent: :destroy
          has_one_attached :avatar
 
-         enum :role, { general_user: 0, agent:1, admin: 2 }
+         enum :role, { general_user: 0, agent:1, distributor: 2, investor: 3, admin: 4 }
 
          validates :name, presence: true
          validates :email, presence: true, uniqueness: true
-         validates :password, presence: true, length: { minimum: 6 }
+         validates :phone, uniqueness: true, allow_blank: true
+         validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
          validates :role, presence: true
 
 
-          acts_as_voter
+          acts_as_votable
+          # act_as_taggable_on :interests, :badges
           # acts_as_taggable_on :interests
 
         #  has_many :posts, dependent: :destroy
@@ -26,55 +29,20 @@ class User < ApplicationRecord
         #  has_many :voted_comments, through: :votes, source: :votable, source_type: 'Comment'
         #  has_many :notifications, dependent: :destroy
 
-        after_create :build_default_profile
+        after_create :create_profile_for_user
 
-        def self.from_omniauth(auth)
-          where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-            user.email = auth.info.email
-            user.password = Devise.friendly_token[0, 20]
-            user.buiid_profile.save
-          end
-        end
+        # def self.from_omniauth(auth)
+        #   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        #     user.email = auth.info.email
+        #     user.password = Devise.friendly_token[0, 20]
+        #     user.buiid_profile.save
+        #   end
+        # end
 
         private
-        def build_default_profile
-          build_profile.save
+        
+        def create_profile_for_user
+          Profile.create(user: self) unless profile.present?
         end
 
-  # def avatar_thumbnail
-  #   avatar.variant(resize_to_limit: [100, 100]).processed if avatar.attached?
-  # rescue
-  #   nil
-  # end
-
-  # def voted_for?(post)
-  #   votes.exists?(votable: post)
-  # end
-
-  # def vote_for(post)
-  #   votes.create(votable: post, vote_flag: true) unless voted_for?(post)
-  # end
-
-  # def unvote_for(post)
-  #   votes.find_by(votable: post)&.destroy
-  # end
-  # def self.search(query)
-  #   if query.present?
-  #     where("name ILIKE :query OR email ILIKE :query", query: "%#{query}%")
-  #   else
-  #     all
-  #   end
-  # end
-
-  # def self.admins
-  #   where(role: 'admin')
-  # end
-
-  # def self.agents
-  #   where(role: 'agent')
-  # end
-
-  # def self.general_users
-  #   where(role: 'general_user')
-  # end
 end
