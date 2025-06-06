@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_05_095206) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_06_102247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,10 +42,49 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_05_095206) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "business_profiles", force: :cascade do |t|
+    t.string "company_name"
+    t.string "business_type"
+    t.string "contact_info"
+    t.integer "approval_status"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_business_profiles_on_user_id"
+  end
+
+  create_table "event_registrations", force: :cascade do |t|
+    t.string "status"
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_registrations_on_event_id"
+    t.index ["user_id"], name: "index_event_registrations_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "event_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "event_id", null: false
+    t.integer "status"
+    t.index ["event_id"], name: "index_feedbacks_on_event_id"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "bio"
-    t.string "interests"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
@@ -73,5 +112,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_05_095206) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "business_profiles", "users"
+  add_foreign_key "event_registrations", "events"
+  add_foreign_key "event_registrations", "users"
+  add_foreign_key "feedbacks", "events"
+  add_foreign_key "feedbacks", "users"
   add_foreign_key "profiles", "users"
 end
