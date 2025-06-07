@@ -24,11 +24,11 @@
       <div class="card-body"><h2><%= @events_count %></h2></div>
     </div>
   </div>
-  <% if can? :update, @business_profile %>
+  <% if @business_profile.present? && can?(:update, @business_profile) %>
   <%= link_to 'Edit', edit_admin_business_profile_path(@business_profile), class: "btn btn-primary" %>
 <% end %>
 
-<% if can? :destroy, @business_profile %>
+<% if @business_profile.present? && can?(:destroy, @business_profile) %>
   <%= link_to 'Delete', admin_business_profile_path(@business_profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 <% end %>
 </div>

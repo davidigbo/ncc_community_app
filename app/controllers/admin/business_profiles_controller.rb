@@ -2,12 +2,30 @@ class Admin::BusinessProfilesController < ApplicationController
   before_action :set_business_profile, only: %i[show edit update destroy]
 
   def index
-    @business_profiles = BusinessProfile.access_by(current_ability).order(created_at: :desc)
+    @business_profiles = BusinessProfile.accessible_by(current_ability).order(created_at: :desc)
   end
 
   def show
+    @business_profile = BusinessProfile.find(params[:id])
     authorize! :read, @business_profile
   end
+
+  def new
+    @business_profile = BusinessProfile.new
+    authorize! :create, @business_profile
+  end
+
+ def create
+  @business_profile = BusinessProfile.new(business_profile_params)
+  @business_profile.user = current_user  # assign the current logged-in user
+  authorize! :create, @business_profile
+  if @business_profile.save
+    redirect_to admin_business_profile_path(@business_profile), notice: 'Business profile was successfully created.'
+  else
+    render :new
+  end
+end
+
 
   def edit
     authorize! :update, @business_profile
@@ -24,10 +42,6 @@ class Admin::BusinessProfilesController < ApplicationController
 
   def destroy
     authorize! :destroy, @business_profile
-    return unless @business_profile.approval_status == 'pending'
-    flash[:alert] = 'Cannot delete a business profile that is pending approval.'
-    return if @business_profile.approval_status == 'approved'
-    return if @business_profile.approval_status == 'rejected'
     @business_profile.destroy
     redirect_to admin_business_profiles_path, notice: 'Business profile was successfully deleted.'
   end

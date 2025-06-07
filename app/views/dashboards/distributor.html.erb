@@ -6,14 +6,14 @@
   <h2>Your Business Profiles</h2>
   <ul>
     <% current_user.business_profiles.each do |profile| %>
-      <li><%= link_to profile.company_name, business_profile_path(profile) %></li>
+      <li><%= link_to profile.company_name, admin_business_profile_path(profile) %></li>
     <% end %>
   </ul>
 
   <h2>Upcoming Events</h2>
   <ul>
     <% Event.upcoming.each do |event| %>
-      <li><%= link_to event.title, event_path(event) %> - <%= event.date.strftime('%B %d, %Y') %></li>
+      <li><%= link_to event.title, admin_event_path(event) %> - <%= event.date.strftime('%B %d, %Y') %></li>
     <% end %>
   </ul>
 <% else %>

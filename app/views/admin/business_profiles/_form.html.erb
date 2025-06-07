@@ -1,4 +1,15 @@
 <%= form_with(model: [:admin, @business_profile], local: true) do |form| %>
+<% if @business_profile.errors.any? %>
+  <div class="alert alert-danger">
+    <h4><%= pluralize(@business_profile.errors.count, "error") %> prevented this business profile from being saved:</h4>
+    <ul>
+      <% @business_profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
   <div class="mb-3">
     <%= form.label :company_name %>
     <%= form.text_field :company_name, class: "form-control" %>
@@ -14,10 +25,7 @@
     <%= form.text_area :contact_info, rows: 3, class: "form-control" %>
   </div>
 
-  <div class="mb-3">
-    <%= form.label :approval_status %>
-    <%= form.select :approval_status, BusinessProfile.approval_statuses.keys.map { |k| [k.titleize, k] }, {}, class: "form-select" %>
-  </div>
+ 
 
   <%= form.submit class: "btn btn-success" %>
   <%= link_to 'Cancel', admin_business_profiles_path, class: "btn btn-secondary ms-2" %>

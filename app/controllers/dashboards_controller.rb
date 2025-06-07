@@ -17,16 +17,4 @@ class DashboardsController < ApplicationController
                 render "general_user"
         end
     end
-
-#     def show
-#   return redirect_to admin_root_path if current_user.admin?
-
-#   view_name = current_user.role.presence || "general_user"
-#   if lookup_context.exists?(view_name, "dashboards", true)
-#     render view_name
-#   else
-#     render "general_user"
-#   end
-# end
-
 end

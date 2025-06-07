@@ -1,4 +1,6 @@
 class Admin::EventsController < ApplicationController
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+
   def index
     @events = Event.accessible_by(current_ability).order(created_at: :desc)
   end
@@ -7,7 +9,7 @@ class Admin::EventsController < ApplicationController
     authorize! :read, @event
   end
 
-  def def new
+  def new
     @event = Event.new
     authorize! :create, @event
   end
@@ -48,6 +50,6 @@ class Admin::EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :description, :start_time, :end_time, :location, :status)
+    params.require(:event).permit(:title, :description, :start_time, :end_time, :location, :status)
   end
 end

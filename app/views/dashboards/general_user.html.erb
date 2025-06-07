@@ -1,0 +1,11 @@
+<!-- app/views/dashboards/general_user.html.erb -->
+<h1>Welcome to your Dashboard</h1>
+<p>This is the general user dashboard.</p>
+<div class="dashboard-links">
+  <h2>Quick Links</h2>
+  <ul>
+    <li><%= link_to 'View Profile', profile_path(current_user.id) %></li>
+    <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
+    <li><%= link_to 'View Events', admin_events_path %></li>
+    <li><%= link_to 'Feedback', admin_feedbacks_path %></li>
+  </ul>

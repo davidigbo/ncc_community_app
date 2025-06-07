@@ -6,20 +6,19 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :business_profiles
-    resources :feedbacks, only: [:index, :show, :destroy]
+    resources :feedbacks, only: [:index, :show, :new, :create, :destroy]
 
     resources :events do
       resources :event_registrations, only: [:index, :show, :update, :destroy]
       resources :replies
     end
 
-    # Admin dashboard root
     root to: "dashboard#index"
   end
 
   # User-specific routes (protected)
   authenticate :user do
-    resources :dashboards, only: [:show]
+    get '/dashboards', to: 'dashboards#show', as: :dashboard
     resources :profiles, only: [:show, :edit, :update]
     resource :settings, only: [:show, :update, :destroy]
   end
