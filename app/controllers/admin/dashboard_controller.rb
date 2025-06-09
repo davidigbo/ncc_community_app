@@ -8,6 +8,8 @@ class Admin::DashboardController < ApplicationController
 
     @user =User.find(params[:user_id]) if params[:user_id].present?
     @user = User.first
+
+    @users = User.all
   
     @business_profiles_pending = BusinessProfile.pending.count
     @business_profiles_approved = BusinessProfile.approved.count
