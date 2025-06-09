@@ -43,6 +43,7 @@ end
   end
 
   def edit
+    # @event = Event.find(params[:event_id])
     @feedback = @event.feedbacks.find(params[:id])
     authorize! :edit, @feedback
   end

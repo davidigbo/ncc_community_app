@@ -1,4 +1,4 @@
-<h1>Feedback for <%= @event.name %></h1>
+<h1>Feedback for <%= @event.title %></h1>
 
 <p><strong>Feedback:</strong></p>
 <p><%= @feedback.content %></p>
@@ -17,5 +17,5 @@
   <p>No replies yet.</p>
 <% end %>
 
-<%= link_to "Edit", edit_admin_feedback_path(@feedback), class: "btn btn-primary" %>
-<%= link_to "Back to Feedbacks", admin_feedbacks_path, class: "btn btn-secondary" %>
+<%= link_to "Edit", edit_admin_event_feedback_path(@feedback.event, @feedback), class: "btn btn-primary" %>
+<%= link_to "Back to Feedbacks", admin_event_feedbacks_path(@feedback.event), class: "btn btn-secondary" %>

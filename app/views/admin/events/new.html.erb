@@ -42,5 +42,15 @@
     <%= form.select :status, Event.statuses.keys.map { |s| [s.titleize, s] }, {}, class: "form-select" %>
   </div>
 
-  <%= form.submit "Create Event", class: "btn btn-primary" %>
+ <div class="mb-3">
+    <%= form.label :image, "Event Image", class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+
+    <% if @event.image.attached? %>
+      <p>Current Image:</p>
+      <%= image_tag @event.image.variant(resize_to_limit: [300, 300]) %>
+    <% end %>
+  </div>
+
+  <%= form.submit @event.new_record? ? "Create Event" : "Update Event", class: "btn btn-primary" %>
 <% end %>

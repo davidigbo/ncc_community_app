@@ -5,5 +5,8 @@
 <p><strong>Content:</strong> <%= simple_format(@reply.content) %></p>
 <p><strong>Created At:</strong> <%= @reply.created_at %></p>
 
+<%= link_to "View", admin_event_feedback_reply_path(reply.feedback.event, reply.feedback, reply) %>
+<%= link_to 'Delete', admin_reply_path(@reply), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'New Reply', new_admin_reply_path %> |
 <%= link_to 'Edit', edit_admin_reply_path(@reply) %> |
 <%= link_to 'Back to Replies', admin_replies_path %>

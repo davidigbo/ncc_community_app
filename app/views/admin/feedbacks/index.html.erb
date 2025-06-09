@@ -12,15 +12,16 @@
   <tbody>
     <% @feedbacks.each do |feedback| %>
       <tr>
-        <td><%= feedback.user&.email || 'N/A' %></td>
+        <td><%= feedback.user&.name || 'N/A' %></td>
         <td><%= truncate(feedback.content, length: 50) %></td>
         <td><%= feedback.status %></td>
         <td><%= feedback.created_at.strftime("%b %d, %Y") %></td>
-        <td>
-  <%= link_to "Show", admin_event_feedback_path(feedback.event, feedback), class: "btn btn-sm btn-primary" %>
-  <%= link_to "Edit", edit_admin_event_feedback_path(feedback.event, feedback), class: "btn btn-sm btn-secondary" %>
-  <%= link_to "Delete", admin_event_feedback_path(feedback.event, feedback), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-</td>
+         <td>
+    <%= link_to "New Reply", new_admin_event_feedback_reply_path(feedback.event, feedback), class: "btn btn-sm btn-success" %>
+    <%= link_to "Show", admin_event_feedback_path(feedback.event, feedback), class: "btn btn-sm btn-primary" %>
+    <%= link_to "Edit", edit_admin_event_feedback_path(feedback.event, feedback), class: "btn btn-sm btn-secondary" %>
+    <%= link_to "Delete", admin_event_feedback_path(feedback.event, feedback), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+  </td>
 
       </tr>
     <% end %>

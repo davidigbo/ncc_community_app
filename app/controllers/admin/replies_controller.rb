@@ -1,8 +1,8 @@
 class Admin::RepliesController < ApplicationController
-    before_action :set_feedback
-    before_action :set_event
-    before_action :authenticate_admin_or_moderator!
-    before_action :set_reply, only: %i[show edit update destroy]
+  before_action :set_event
+  before_action :set_feedback
+  before_action :authenticate_user!
+  before_action :set_reply, only: %i[show edit update destroy]
 
   def index
       @replies = @feedback.replies.includes(:user).order(created_at: :desc)
@@ -60,7 +60,11 @@ class Admin::RepliesController < ApplicationController
     @feedback = @event.feedbacks.find(params[:feedback_id])
   end
 
-   def reply_params
+  def set_reply
+    @reply = @feedback.replies.find(params[:id])
+  end
+
+  def reply_params
     params.require(:reply).permit(:content)
   end
 end
