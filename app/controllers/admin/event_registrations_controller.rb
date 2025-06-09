@@ -1,6 +1,6 @@
 class Admin::EventRegistrationsController < ApplicationController
   before_action :set_event
-  before_action :set_registration, only: [:show, :edit, :update, :destroy]
+  before_action :set_registration, only: [:edit, :update, :destroy]
 
   def index
     @event = Event.find(params[:event_id])
@@ -37,7 +37,7 @@ end
   @event = Event.find(params[:event_id])
   @registration = @event.event_registrations.find(params[:id])
 
-  if @registration.update(registration_params)
+  if @registration.update(event_registration_params)
     redirect_to admin_event_event_registrations_path(@event), notice: "Registration updated successfully."
   else
     render :edit
