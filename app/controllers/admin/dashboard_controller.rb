@@ -16,6 +16,13 @@ class Admin::DashboardController < ApplicationController
     @business_profiles_rejected = BusinessProfile.rejected.count
     @feedbacks_count = Feedback.count
     @events_count = Event.count
+
+    @total_registrations = EventRegistration.count
+    @registrations_this_month = EventRegistration.where("created_at >= ?", Date.today.beginning_of_month).count
+    @registrations_per_event = Event.includes(:event_registrations)
+    @registrations_per_day = EventRegistration.group_by_day(:created_at).count
+    @registrations_by_location = EventRegistration.group(:location).count
+    @registrations_by_profession = EventRegistration.group(:profession).count
   end
 
   private

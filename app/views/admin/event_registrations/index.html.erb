@@ -1,4 +1,4 @@
-<h2>Registrations for <%= @event.name %></h2>
+<h2>Registrations for <%= @event.title %></h2>
 
 <%= link_to "New Registration", new_admin_event_event_registration_path(@event), class: "btn btn-success mb-3" %>
 
@@ -22,8 +22,9 @@
         <td><%= reg.location %></td>
         <td><%= reg.profession %></td>
         <td>
-          <%= link_to "Show", admin_event_event_registration_path(@event, reg), class: "btn btn-sm btn-primary" %>
-          <%= link_to "Delete", admin_event_event_registration_path(@event, reg), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+         <%= link_to "Edit", edit_admin_event_event_registration_path(@registration.event, @registration), class: "btn btn-primary" %>
+         <%= link_to "Back to Registrations", admin_event_event_registrations_path(@registration.event), class: "btn btn-secondary" %>
+        <%= link_to "Delete", admin_event_event_registration_path(@event, reg), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>

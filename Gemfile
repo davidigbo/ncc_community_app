@@ -66,5 +66,5 @@ gem "omniauth-google-oauth2"
 gem "bootstrap"
 gem "sassc-rails"
 gem 'activestorage-validator'
-
-# gem "rich_text", "~> 0.2.0"
+gem 'chartkick'
+gem 'groupdate' 
