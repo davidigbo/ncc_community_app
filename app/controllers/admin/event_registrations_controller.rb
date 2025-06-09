@@ -52,6 +52,6 @@ end
   end
 
   def event_registration_params
-    params.require(:event_registration).permit(:name, :email, :phone_number, :location, :profession, :user_id, :event_id, :status, :registration_date, :notes)
+    params.require(:event_registration).permit(:name, :email, :phone_number, :location, :profession, :user_id, :event_id, :registration_date, :notes)
   end
 end
