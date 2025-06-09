@@ -1,30 +1,29 @@
-<h1>Replies</h1>
+<h1>Replies for Feedback: <%= @feedback.content.truncate(50) %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Feedback</th>
-      <th>User</th>
       <th>Content</th>
+      <th>Author</th>
       <th>Created At</th>
       <th>Actions</th>
     </tr>
   </thead>
+
   <tbody>
     <% @replies.each do |reply| %>
       <tr>
-        <td><%= reply.feedback.try(:title) || "N/A" %></td>
-        <td><%= reply.user.try(:email) || "N/A" %></td>
         <td><%= truncate(reply.content, length: 50) %></td>
-        <td><%= reply.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= reply.user.name %></td>
+        <td><%= reply.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td>
-          <%= link_to 'Show', admin_reply_path(reply) %> |
-          <%= link_to 'Edit', edit_admin_reply_path(reply) %> |
-          <%= link_to 'Delete', admin_reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to "Edit", edit_admin_event_feedback_reply_path(@event, @feedback, reply) %> |
+          <%= link_to "Delete", admin_event_feedback_reply_path(@event, @feedback, reply), method: :delete, data: { confirm: "Are you sure?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Reply', new_admin_reply_path %>
+<%= link_to "New Reply", new_admin_event_feedback_reply_path(@event, @feedback) %>
+<%= link_to "Back to Feedbacks", admin_event_feedbacks_path(@event) %>

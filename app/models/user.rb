@@ -12,14 +12,7 @@ class User < ApplicationRecord
          has_many :replies, dependent: :destroy
          has_one_attached :avatar
 
-         enum role: {
-    general_user: 0,
-    admin: 1,
-    moderator: 2,
-    agent: 3,
-    distributor: 4,
-    investor: 5
-  }
+         enum role: { general_user: 0, admin: 1, moderator: 2, agent: 3, distributor: 4, investor: 5}
 
          validates :name, presence: true
          validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -48,27 +41,27 @@ class User < ApplicationRecord
         #   end
         # end
 
-  def admin?
+  def admin
     role == 'admin'
   end
 
-  def moderator?
+  def moderator
     role == 'moderator'
   end
 
-  def agent?
+  def agent
     role == 'agent'
   end
 
-  def distributor?
+  def distributor
     role == 'distributor'
   end
 
-  def investor?
+  def investor
     role == 'investor'
   end
 
-  def general_user?
+  def general_user
     role.blank? || role == 'general_user'
   end
 

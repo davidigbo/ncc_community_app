@@ -17,12 +17,13 @@
         <td><%= feedback.status %></td>
         <td><%= feedback.created_at.strftime("%b %d, %Y") %></td>
         <td>
-          <%= link_to "Show", admin_feedback_path(feedback), class: "btn btn-sm btn-primary" %>
-          <%= link_to "Edit", edit_admin_feedback_path(feedback), class: "btn btn-sm btn-secondary" %>
-          <%= link_to "Delete", admin_feedback_path(feedback), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-        </td>
+  <%= link_to "Show", admin_event_feedback_path(feedback.event, feedback), class: "btn btn-sm btn-primary" %>
+  <%= link_to "Edit", edit_admin_event_feedback_path(feedback.event, feedback), class: "btn btn-sm btn-secondary" %>
+  <%= link_to "Delete", admin_event_feedback_path(feedback.event, feedback), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+</td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to "New Feedback", new_admin_feedback_path, class: "btn btn-success" %>
+<%= link_to "New Feedback", new_admin_event_feedback_path, class: "btn btn-success" %>

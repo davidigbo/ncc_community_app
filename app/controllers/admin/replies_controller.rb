@@ -1,50 +1,66 @@
 class Admin::RepliesController < ApplicationController
-      before_action :set_reply, only: %i[show edit update destroy]
+    before_action :set_feedback
+    before_action :set_event
+    before_action :authenticate_admin_or_moderator!
+    before_action :set_reply, only: %i[show edit update destroy]
 
   def index
-    @replies = Reply.includes(:feedback, :user).order(created_at: :desc)
+      @replies = @feedback.replies.includes(:user).order(created_at: :desc)
   end
+
 
   def show
   end
 
   def new
-    @reply = Reply.new
+    @reply = @feedback.replies.new
   end
 
   def create
-    @reply = Reply.new(reply_params)
-    if @reply.save
-      redirect_to admin_reply_path(@reply), notice: "Reply was successfully created."
+    @reply = @feedback.replies.new(reply_params)
+    @reply.user = current_user
+
+      if @reply.save
+      redirect_to admin_event_feedback_path(@event, @feedback), notice: "Reply was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
   def edit
+    @reply = @feedback.replies.find(params[:id])
+    unless @reply.user == current_user || current_user.admin?
+      redirect_to admin_event_feedback_replies_path(@event, @feedback), alert: "You are not authorized to edit this reply."
+      return
+     end
   end
 
-  def update
+ def update
+    @reply = @feedback.replies.find(params[:id])
     if @reply.update(reply_params)
-      redirect_to admin_reply_path(@reply), notice: "Reply was successfully updated."
+      redirect_to admin_event_feedback_replies_path(@event, @feedback), notice: "Reply updated."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
   def destroy
+    @reply = @feedback.replies.find(params[:id])
     @reply.destroy
-    redirect_to admin_replies_path, notice: "Reply was successfully deleted."
+    redirect_to admin_event_feedback_replies_path(@event, @feedback), notice: "Reply deleted."
   end
 
   private
 
-  def set_reply
-    @reply = Reply.find(params[:id])
+  def set_event
+    @event = Event.find(params[:event_id])
   end
 
-  def reply_params
-    params.require(:reply).permit(:feedback_id, :user_id, :content)
+  def set_feedback
+    @feedback = @event.feedbacks.find(params[:feedback_id])
+  end
+
+   def reply_params
+    params.require(:reply).permit(:content)
   end
 end
-

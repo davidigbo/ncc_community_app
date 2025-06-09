@@ -1,8 +1,21 @@
-<h1>Feedback Details</h1>
-<p><strong>User:</strong> <%= @feedback.user&.email || 'N/A' %></p>
-<p><strong>Content:</strong> <%= @feedback.content %></p>
-<p><strong>Status:</strong> <%= @feedback.status %></p>
-<p><strong>Created At:</strong> <%= @feedback.created_at.strftime("%b %d, %Y %H:%M") %></p>
+<h1>Feedback for <%= @event.name %></h1>
+
+<p><strong>Feedback:</strong></p>
+<p><%= @feedback.content %></p>
+
+<h2>Replies:</h2>
+<% if @replies.any? %>
+  <% @replies.each do |reply| %>
+    <div class="reply">
+      <p><strong><%= reply.user.name %> says:</strong></p>
+      <p><%= reply.content %></p>
+      <small><%= reply.created_at.strftime("%b %d, %Y %H:%M") %></small>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>No replies yet.</p>
+<% end %>
 
 <%= link_to "Edit", edit_admin_feedback_path(@feedback), class: "btn btn-primary" %>
 <%= link_to "Back to Feedbacks", admin_feedbacks_path, class: "btn btn-secondary" %>

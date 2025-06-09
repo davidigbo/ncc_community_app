@@ -113,8 +113,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_06_202219) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
+    t.integer "role", default: 0
     t.text "bio"
+    t.string "provider"
+    t.string "uid"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

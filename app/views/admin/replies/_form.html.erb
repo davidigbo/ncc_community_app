@@ -1,31 +1,21 @@
-<%= form_with(model: [:admin, reply], local: true) do |form| %>
-  <% if reply.errors.any? %>
+<%= form_with model: [ :admin, @event, @feedback, @reply ], local: true do |f| %>
+  <% if @reply.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
+      <h2><%= pluralize(@reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
       <ul>
-        <% reply.errors.full_messages.each do |msg| %>
+        <% @reply.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :feedback_id %><br>
-    <%= form.collection_select :feedback_id, Feedback.all, :id, :title, prompt: 'Select Feedback' %>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
   </div>
 
-  <div>
-    <%= form.label :user_id %><br>
-    <%= form.collection_select :user_id, User.all, :id, :email, prompt: 'Select User' %>
-  </div>
-
-  <div>
-    <%= form.label :content %><br>
-    <%= form.text_area :content %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= f.submit %>
   </div>
 <% end %>
