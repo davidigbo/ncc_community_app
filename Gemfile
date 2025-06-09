@@ -65,5 +65,6 @@ gem "image_processing"
 gem "omniauth-google-oauth2"
 gem "bootstrap"
 gem "sassc-rails"
-gem "active_storage_validations"
-gem "rich_text", "~> 0.2.0"
+gem 'activestorage-validator'
+
+# gem "rich_text", "~> 0.2.0"

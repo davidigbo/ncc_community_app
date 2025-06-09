@@ -2,10 +2,11 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Image</th>
       <th>Title</th>
       <th>Description</th>
-      <th>Start Date</th>
-      <th>End Date</th>
+      <th>Start Time</th>
+      <th>End Time</th>
       <th>Status</th>
       <th>Actions</th>
     </tr>
@@ -13,11 +14,19 @@
   <tbody>
     <% @events.each do |event| %>
       <tr>
+        <td>
+          <% if event.image.attached? %>
+            <%= image_tag event.image.variant(resize_to_limit: [100, 100]), alt: event.title %>
+          <% else %>
+            No Image
+          <% end %>
+        </td>
         <td><%= event.title %></td>
-        <td><%= truncate(event.description, length: 100) %></td>
-        <td><%= event.start_date.strftime("%b %d, %Y") if event.start_date %></td>
+         <td><%= truncate(event.description, length: 100) %></td>
+          <td><%= event.start_date.strftime("%b %d, %Y") if event.start_date %></td>
         <td><%= event.end_date.strftime("%b %d, %Y") if event.end_date %></td>
         <td><%= event.status %></td>
+        
         <td>
           <%= link_to "Show", admin_event_path(event), class: "btn btn-sm btn-primary" %>
           <%= link_to "Edit", edit_admin_event_path(event), class: "btn btn-sm btn-secondary" %>
@@ -28,4 +37,5 @@
     <% end %>
   </tbody>
 </table>
+
 <%= link_to "New Event", new_admin_event_path, class: "btn btn-success" %>
