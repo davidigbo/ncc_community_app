@@ -26,11 +26,6 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :register_date, class: "form-label" %>
-    <%= form.collection_select :register_date, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
     <%= form.label :location, class: "form-label" %>
     <%= form.text_field :location, class: "form-control" %>
   </div>
@@ -38,6 +33,16 @@
   <div class="mb-3">
     <%= form.label :profession, class: "form-label" %>
     <%= form.text_field :profession, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :registration_date, "Registration Date", class: "form-label" %>
+    <%= form.date_select :registration_date, start_year: Date.today.year, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :notes, class: "form-label" %>
+    <%= form.text_area :notes, class: "form-control" %>
   </div>
 
   <div class="mb-3">

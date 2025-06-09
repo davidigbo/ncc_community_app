@@ -8,23 +8,32 @@
       <th>Name</th>
       <th>Email</th>
       <th>Phone</th>
+      <th>Registration Date</th>
       <th>Location</th>
       <th>Profession</th>
+      <th>Notes</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <% @event.event_registrations.each do |reg| %>
+    <% @registrations.each do |reg| %>
       <tr>
         <td><%= reg.name %></td>
         <td><%= reg.email %></td>
         <td><%= reg.phone_number %></td>
+        <td><%= reg.registration_date.strftime("%B %d, %Y") if reg.registration_date %></td>
         <td><%= reg.location %></td>
         <td><%= reg.profession %></td>
+        <td><%= reg.notes %></td>
         <td>
-         <%= link_to "Edit", edit_admin_event_event_registration_path(@registration.event, @registration), class: "btn btn-primary" %>
-         <%= link_to "Back to Registrations", admin_event_event_registrations_path(@registration.event), class: "btn btn-secondary" %>
-        <%= link_to "Delete", admin_event_event_registration_path(@event, reg), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+         <% if reg.event.present? %>
+  <%= link_to "Edit", edit_admin_event_event_registration_path(reg.event, reg), class: "btn btn-primary" %>
+  <%= link_to "Back to Registrations", admin_event_event_registrations_path(reg.event), class: "btn btn-secondary" %>
+  <%= link_to "Delete", admin_event_event_registration_path(reg.event, reg), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+<% else %>
+  <em>Event missing</em>
+<% end %>
+
         </td>
       </tr>
     <% end %>

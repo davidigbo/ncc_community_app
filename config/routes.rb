@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  # Devise routes for user authentication
   devise_for :users
 
-  # Admin namespace with authentication assumed in controllers
 namespace :admin do
   resources :users
   resources :business_profiles
@@ -17,7 +15,6 @@ namespace :admin do
   root to: "dashboard#index"
 end
 
-  # Authenticated user routes
   authenticate :user do
     get '/dashboards', to: 'dashboards#show', as: :dashboard
     resources :profiles, only: [:show, :edit, :update]

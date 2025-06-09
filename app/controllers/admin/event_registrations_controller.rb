@@ -1,9 +1,10 @@
 class Admin::EventRegistrationsController < ApplicationController
+  before_action :set_event
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
 
   def index
     @event = Event.find(params[:event_id])
-    @registrations = @event.event_registrations
+    @registrations = EventRegistration.includes(:event).where(event_id: params[:event_id])
     authorize! :read, @registrations
   end
 
@@ -12,7 +13,7 @@ class Admin::EventRegistrationsController < ApplicationController
   end
 def new
   @event = Event.find(params[:event_id])
-  @registration = @event.event_registrations.build
+  @registration = @event.event_registrations.build(registration_date: Date.today)
 end
 
 def create
@@ -49,6 +50,10 @@ end
 
   def set_registration
     @registration = EventRegistration.find(params[:id])
+  end
+
+  def set_event 
+    @event = Event.find(params[:event_id])
   end
 
   def event_registration_params
