@@ -1,0 +1,7 @@
+<!-- app/views/admin/dashboard/_event_registration_counts.html.erb -->
+<% Event.all.each do |event| %>
+  <div class="mb-2">
+    <strong><%= event.title %>:</strong>
+    <%= event.event_registrations.count %> registrations
+  </div>
+<% end %>

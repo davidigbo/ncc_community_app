@@ -1,0 +1,15 @@
+<!-- app/views/admin/dashboard/_summary_cards.html.erb -->
+<div class="row">
+  <div class="col-md-3">
+    <div class="card text-center p-3 bg-light">
+      <h5>Total Registrations</h5>
+      <h3><%= EventRegistration.count %></h3>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center p-3 bg-light">
+      <h5>This Month</h5>
+      <h3><%= EventRegistration.where("created_at >= ?", Date.today.beginning_of_month).count %></h3>
+    </div>
+  </div>
+</div>

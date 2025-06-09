@@ -1,0 +1,3 @@
+<!-- app/views/admin/dashboard/_charts.html.erb -->
+<%= line_chart @registrations_per_day, xtitle: "Date", ytitle: "Registrations" %>
+<%= pie_chart @registrations_by_location, donut: true %>
