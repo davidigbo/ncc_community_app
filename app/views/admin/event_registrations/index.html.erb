@@ -1,28 +1,31 @@
-<h1>Event Registrations</h1>
-<table class="table table-striped">
+<h2>Registrations for <%= @event.name %></h2>
+
+<%= link_to "New Registration", new_admin_event_event_registration_path(@event), class: "btn btn-success mb-3" %>
+
+<table class="table table-bordered">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Event</th>
-      <th>Status</th>
-      <th>Registered At</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Location</th>
+      <th>Profession</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <% @event_registrations.each do |registration| %>
+    <% @event.event_registrations.each do |reg| %>
       <tr>
-        <td><%= registration.user&.email || 'N/A' %></td>
-        <td><%= registration.event&.title || 'N/A' %></td>
-        <td><%= registration.status %></td>
-        <td><%= registration.created_at.strftime("%b %d, %Y") %></td>
+        <td><%= reg.name %></td>
+        <td><%= reg.email %></td>
+        <td><%= reg.phone_number %></td>
+        <td><%= reg.location %></td>
+        <td><%= reg.profession %></td>
         <td>
-          <%= link_to "Show", admin_event_registration_path(registration), class: "btn btn-sm btn-primary" %>
-          <%= link_to "Edit", edit_admin_event_registration_path(registration), class: "btn btn-sm btn-secondary" %>
-          <%= link_to "Delete", admin_event_registration_path(registration), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <%= link_to "Show", admin_event_event_registration_path(@event, reg), class: "btn btn-sm btn-primary" %>
+          <%= link_to "Delete", admin_event_event_registration_path(@event, reg), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to "New Registration", new_admin_event_registration_path, class: "btn btn-success" %>

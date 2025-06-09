@@ -42,7 +42,7 @@
           <br>
           <small><%= event.start_date.strftime("%b %d, %Y %H:%M") if event.start_date %></small>
         </div>
-        <%= link_to "View Details", event_path(event), class: "btn btn-sm btn-outline-primary" %>
+        <%= link_to "View Details", admin_event_path(event), class: "btn btn-sm btn-outline-primary" %>
       </li>
     <% end %>
   </ul>
