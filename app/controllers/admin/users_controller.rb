@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.accessible_by(current_ability).order(created_at: :desc)
+    @users = User.all.order(:name)
   end
 
   def show
@@ -25,10 +25,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
     authorize! :update, @user
   end
 
   def update
+    @user = User.find(params[:id])
     authorize! :update, @user
     if @user.update(user_params)
       redirect_to admin_users_path, notice: 'User updated successfully.'
@@ -51,5 +53,12 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :bio, :avatar)
+  end
+
+  def ensure_admin_or_moderator!
+    unless current_user.admin? || current_user.moderator?
+      flash[:alert] = "You are not authorized to access this page."
+      redirect_to root_path
+    end
   end
 end

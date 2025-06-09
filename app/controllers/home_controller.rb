@@ -7,14 +7,15 @@ class HomeController < ApplicationController
   # end
 
 
-  def index
+def dashboard
   if user_signed_in?
-    # Authenticated users should see app content 
-    # or be redirected to their dashboard (DON'T send to sign-up)
-    render :dashboard  # Example
-    # OR redirect_to dashboard_path
+    @latest_events = Event.order(created_at: :desc).limit(5)
+    # @popular_events = Event.order(attendees_count: :desc).limit(5)
+    @upcoming_events = Event.where("start_date > ?", Time.current).order(start_date: :asc).limit(5)
+    @past_events = Event.where("end_date < ?", Time.current).order(end_date: :desc).limit(5)
+
+    render :dashboard
   else
-    # Unauthenticated users go to sign-up 
     redirect_to new_user_registration_path
   end
 end

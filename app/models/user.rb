@@ -41,28 +41,32 @@ class User < ApplicationRecord
         #   end
         # end
 
-  def admin
+  def admin?
     role == 'admin'
   end
 
-  def moderator
+  def moderator?
     role == 'moderator'
   end
 
-  def agent
-    role == 'agent'
-  end
-
-  def distributor
-    role == 'distributor'
-  end
-
-  def investor
+  def investor?
     role == 'investor'
   end
 
-  def general_user
-    role.blank? || role == 'general_user'
+  def agent?
+    role == 'agent'
+  end
+
+  def distributor?
+    role == 'distributor'
+  end
+
+  def general_user?
+    role == 'general_user' || role.blank?
+  end
+
+  def can_any_role?
+    admin? || moderator? || investor? || agent? || distributor?
   end
 
         private

@@ -1,41 +1,48 @@
-<h1>Events</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td>
-          <% if event.image.attached? %>
-            <%= image_tag event.image.variant(resize_to_limit: [100, 100]), alt: event.title %>
-          <% else %>
-            No Image
-          <% end %>
-        </td>
-        <td><%= event.title %></td>
-         <td><%= truncate(event.description, length: 100) %></td>
-          <td><%= event.start_date.strftime("%b %d, %Y") if event.start_date %></td>
-        <td><%= event.end_date.strftime("%b %d, %Y") if event.end_date %></td>
-        <td><%= event.status %></td>
-        
-        <td>
-          <%= link_to "Show", admin_event_path(event), class: "btn btn-sm btn-primary" %>
-          <%= link_to "Edit", edit_admin_event_path(event), class: "btn btn-sm btn-secondary" %>
-          <%= link_to "New Feedback", new_admin_event_feedback_path(event), class: "btn btn-success" %>
-          <%= link_to "Delete", admin_event_path(event), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<h1 class="mb-4">Events</h1>
 
-<%= link_to "New Event", new_admin_event_path, class: "btn btn-success" %>
+<div class="container">
+  <% @events.each do |event| %>
+    <div class="card mb-4 shadow-sm">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-3">
+          <% if event.image.attached? %>
+            <%= image_tag event.image.variant(resize_to_limit: [200, 200]), alt: event.title, class: "img-fluid rounded-start" %>
+          <% else %>
+            <div class="d-flex align-items-center justify-content-center bg-light text-muted" style="height: 200px;">
+              No Image
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title"><%= event.title %></h5>
+            <p class="card-text text-truncate" style="max-height: 4.5em; overflow: hidden;">
+              <%= event.description %>
+            </p>
+
+            <p class="mb-1">
+              <strong>Start:</strong> <%= event.start_date ? event.start_date.strftime("%b %d, %Y") : "N/A" %>
+              &nbsp;&nbsp;
+              <strong>End:</strong> <%= event.end_date ? event.end_date.strftime("%b %d, %Y") : "N/A" %>
+            </p>
+
+            <p>
+              <strong>Status:</strong>
+              <span class="badge bg-info text-dark"><%= event.status.titleize %></span>
+            </p>
+
+            <div>
+              <%= link_to "Show", admin_event_path(event), class: "btn btn-sm btn-primary me-2" %>
+              <%= link_to "Edit", edit_admin_event_path(event), class: "btn btn-sm btn-secondary me-2" %>
+              <%= link_to "New Feedback", new_admin_event_feedback_path(event), class: "btn btn-sm btn-success me-2" %>
+              <%= link_to "Delete", admin_event_path(event), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to "New Event", new_admin_event_path, class: "btn btn-lg btn-success mt-3" %>
+</div>

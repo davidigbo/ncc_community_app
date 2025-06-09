@@ -16,3 +16,19 @@
 
 @import "bootstrap";
 
+.big-background {
+  background-color: #f0f8ff; /* light blue, change as you want */
+  padding: 2rem; /* optional padding for spacing */
+}
+
+/* Control carousel images inside .big-background */
+.big-background .carousel-item img,
+.big-background .carousel-item picture img {
+  max-width: 100%;
+  max-height: 400px;   /* limit height to avoid huge images */
+  object-fit: cover;   /* crop nicely if needed */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+

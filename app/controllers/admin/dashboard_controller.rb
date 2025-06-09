@@ -4,6 +4,8 @@ class Admin::DashboardController < ApplicationController
 
   def index
     @users_count = User.count
+    @recent_users = User.order(created_at: :desc).limit(10) # latest 10 users
+
     @business_profiles_pending = BusinessProfile.pending.count
     @business_profiles_approved = BusinessProfile.approved.count
     @business_profiles_rejected = BusinessProfile.rejected.count

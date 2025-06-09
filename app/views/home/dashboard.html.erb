@@ -1,3 +1,64 @@
-<!-- app/views/home/dashboard.html.erb -->
-<h1>Welcome to your Dashboard</h1>
-<p>Here you can manage your business profile and view your activities.</p>
+<div class="container mt-5 big-background">
+
+  <h2>Latest Events</h2>
+  <div id="latestEventsCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <p>latest events count: <%= @latest_events&.count || "nil" %></p>
+      <p>upcomingevents count: <%= @upcoming_events&.count || "nil" %></p>
+      <p>past events count: <%= @past_events&.count || "nil" %></p>
+
+      <% @latest_events.each_with_index do |event, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <% if event.image.attached? %>
+            <%= image_tag event.image.variant(resize_to_limit: [800, 400]), class: "d-block w-100", alt: event.title %>
+          <% else %>
+            <img src="https://via.placeholder.com/800x400?text=No+Image" class="d-block w-100" alt="No image">
+          <% end %>
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+            <h5><%= event.title %></h5>
+            <p><%= truncate(event.description, length: 100) %></p>
+            <p><small><%= event.start_date.strftime("%b %d, %Y %H:%M") if event.start_date %></small></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#latestEventsCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#latestEventsCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+  <h2>Upcoming Events</h2>
+  <ul class="list-group mb-5">
+    <% @upcoming_events.each do |event| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= event.title %></strong>
+          <br>
+          <small><%= event.start_date.strftime("%b %d, %Y %H:%M") if event.start_date %></small>
+        </div>
+        <%= link_to "View Details", event_path(event), class: "btn btn-sm btn-outline-primary" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>Past Events</h2>
+  <ul class="list-group mb-5">
+    <% @past_events.each do |event| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= event.title %></strong>
+          <br>
+          <small><%= event.end_date.strftime("%b %d, %Y %H:%M") if event.end_date %></small>
+        </div>
+       <%= link_to "View Details", admin_event_path(event), class: "btn btn-sm btn-outline-secondary" %>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

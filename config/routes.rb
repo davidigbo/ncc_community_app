@@ -25,5 +25,5 @@ end
   end
 
   # Public root page
-  root "home#index"
+  root "home#dashboard"
 end
