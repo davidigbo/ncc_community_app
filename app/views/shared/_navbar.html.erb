@@ -1,7 +1,9 @@
 <% if user_signed_in? %>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top border-bottom border-primary">
     <div class="container">
-      <%= link_to "NationalCakeGame", root_path, class: "navbar-brand fw-bold text-white m-2" %>
+     <%= link_to root_path, class: "navbar-brand m-2" do %>
+         <%= image_tag "logo.jpeg", alt: "NationalCakeGame", class: "img-fluid rounded-circle", style: "height: 40px;"%>
+    <% end %>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

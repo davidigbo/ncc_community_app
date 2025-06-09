@@ -28,17 +28,23 @@ end
 
 
   def edit
+    @event = Event.find(params[:event_id])
+    @registration = @event.event_registrations.find(params[:id])
     authorize! :update, @registration
   end
 
   def update
-    authorize! :update, @registration
-    if @registration.update(event_registration_params)
-      redirect_to admin_event_registrations_path, notice: 'Registration updated successfully.'
-    else
-      render :edit
-    end
+  @event = Event.find(params[:event_id])
+  @registration = @event.event_registrations.find(params[:id])
+
+  if @registration.update(registration_params)
+    redirect_to admin_event_event_registrations_path(@event), notice: "Registration updated successfully."
+  else
+    render :edit
   end
+end
+
+private
 
   def destroy
     authorize! :destroy, @registration

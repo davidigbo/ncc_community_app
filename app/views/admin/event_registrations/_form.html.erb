@@ -1,51 +1,68 @@
-<%= form_with(model: [:admin, @event, @registration], local: true) do |form| %>
-  <% if @registration.errors.any? %>
-    <div class="alert alert-danger">
-      <h4>There were some errors:</h4>
-      <ul>
-        <% @registration.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="container mt-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0"><%= @registration.new_record? ? "New Registration" : "Edit Registration" %></h4>
+        </div>
+        <div class="card-body">
+
+          <%= form_with(model: [:admin, @event, @registration], local: true) do |form| %>
+            <% if @registration.errors.any? %>
+              <div class="alert alert-danger">
+                <h5>There were some errors:</h5>
+                <ul>
+                  <% @registration.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :email, class: "form-label" %>
+              <%= form.email_field :email, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :phone_number, class: "form-label" %>
+              <%= form.telephone_field :phone_number, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :location, class: "form-label" %>
+              <%= form.text_field :location, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :profession, class: "form-label" %>
+              <%= form.text_field :profession, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :registration_date, "Registration Date", class: "form-label" %>
+              <%= form.date_select :registration_date, start_year: Date.today.year, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :notes, class: "form-label" %>
+              <%= form.text_area :notes, rows: 3, class: "form-control" %>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <%= form.submit @registration.new_record? ? "Register" : "Update", class: "btn btn-success" %>
+              <%= link_to "Back", admin_event_event_registrations_path(@event), class: "btn btn-secondary" %>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
   </div>
-
-  <div class="mb-3">
-    <%= form.label :email, class: "form-label" %>
-    <%= form.email_field :email, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :phone_number, class: "form-label" %>
-    <%= form.telephone_field :phone_number, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :location, class: "form-label" %>
-    <%= form.text_field :location, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :profession, class: "form-label" %>
-    <%= form.text_field :profession, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :registration_date, "Registration Date", class: "form-label" %>
-    <%= form.date_select :registration_date, start_year: Date.today.year, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :notes, class: "form-label" %>
-    <%= form.text_area :notes, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.submit "Register", class: "btn btn-primary" %>
-  </div>
-<% end %>
+</div>

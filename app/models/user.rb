@@ -12,7 +12,7 @@ class User < ApplicationRecord
          has_many :replies, dependent: :destroy
          has_many :event_registrations, dependent: :destroy
          has_one_attached :avatar
-
+         
          enum role: { general_user: 0, admin: 1, moderator: 2, agent: 3, distributor: 4, investor: 5}
 
          validates :name, presence: true
