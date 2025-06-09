@@ -92,4 +92,14 @@
       </tbody>
     </table>
   </div>
+
+<h3>Manage User</h3>
+<%= form_with(model: @user, url: admin_users_path(@user), method: :patch, local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :role, class: "form-label" %>
+    <%= form.select :role, User.roles.keys.map { |r| [r.titleize, r] }, {}, class: "form-select" %>
+  </div>
+  <%= form.submit "Assign Role", class: "btn btn-primary" %>
+<% end %>
+
 </div>
