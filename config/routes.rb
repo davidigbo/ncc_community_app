@@ -8,9 +8,9 @@ namespace :admin do
   resources :events do
     resources :feedbacks, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       resources :replies, only: [:index, :new, :create, :edit, :update, :destroy]
-    end
-    resources :event_registrations, only: [:index, :show, :new, :create, :update, :destroy]
   end
+    resources :event_registrations, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+end
 
   root to: "dashboard#index"
 end
