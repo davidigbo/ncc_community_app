@@ -6,6 +6,10 @@
           <h2 class="mb-0">Welcome to National Cake Game Community, Log in!</h2>
         </div>
         <div class="card-body bg-light">
+        <% if flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <%= f.error_notification %>
 

@@ -1,12 +1,7 @@
 # app/controllers/home_controller.rb
 class HomeController < ApplicationController
-  # def index
-  #   if user_signed_in?
-  #     redirect_to dashboard_path(current_user)
-  #   end
-  # end
-
-
+  before_action :authenticate_user!
+  
 def dashboard
   if user_signed_in?
     @latest_events = Event.order(created_at: :desc).limit(5)
